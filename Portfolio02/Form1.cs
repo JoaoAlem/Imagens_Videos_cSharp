@@ -20,8 +20,18 @@ namespace Portfolio02
             _mediaPlayer = new MediaPlayer(_libVLC);
 
             // Adicionando eventos ao pausar e soltar
-            _mediaPlayer.Playing += (sender, e) => { button1.Text = "Pause"; };
-            _mediaPlayer.Paused += (sender, e) => { button1.Text = "Play"; };
+            _mediaPlayer.Playing += (sender, e) => {
+                button1.Invoke((MethodInvoker)delegate
+                {
+                    button1.Text = "Pause";
+                });
+            };
+            _mediaPlayer.Paused += (sender, e) => {
+                button1.Invoke((MethodInvoker)delegate
+                {
+                    button1.Text = "Play";
+                });
+            };
         }
 
         // Eventos gerais
@@ -31,7 +41,7 @@ namespace Portfolio02
             _mediaPlayer.Dispose();
             _libVLC.Dispose();
 
-            // sair da aplicação
+            // sair da aplicaÃ§Ã£o
             Environment.Exit(0);
         }
 
@@ -39,7 +49,7 @@ namespace Portfolio02
 
         private void btnEnviar_Click(object sender, EventArgs e)
         {
-            // abrir uma caixa de dialogo com as opções de videos
+            // abrir uma caixa de dialogo com as opÃ§Ãµes de videos
             using var openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Video Files (*.mp4;*.avi;*.mkv)|*.mp4;*.avi;*.mkv";
 
